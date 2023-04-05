@@ -6,15 +6,15 @@ const app = express();
 const PORT = 8080;
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
-const ingredients = require('./routes/ingredients');
+const songs = require('./routes/songs');
 
 const swaggerDefinition = {
     openapi: '3.0.3',
     info: {
-        title: 'Swagger Cake API',
+        title: 'Swagger Songs API',
         version: '0.0.2',
         description:
-            'API for bake off cake ingredients',
+            'API for artist songs',
         license: {
             name: 'Licensed Under MIT',
             url: 'https://spdx.org/licenses/MIT.html',
@@ -22,8 +22,8 @@ const swaggerDefinition = {
     },
     tags: [
         {
-            "name": "cake",
-            "description": "Cake ingredients"
+            "name": "songs",
+            "description": "Artist songs"
         }
     ],
 };
@@ -53,7 +53,7 @@ app.listen(PORT, () => {
 
 app.get('/', (req, res) => res.status(200).json({ status: "ok" }))
 
-app.use('/', ingredients);
+app.use('/', songs);
 
 app.get('/swagger.json', function (req, res) {
      res.setHeader('Content-Type', 'application/json');

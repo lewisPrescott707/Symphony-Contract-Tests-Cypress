@@ -1,29 +1,29 @@
-import logo from './cake.svg';
+import logo from './musical-notes.svg';
 import './App.css';
 import axios from "axios";
 import React from "react";
 
-const CAKE_URL = "/ingredients/chocolate";
+const SONGS_URL = "/songs/ed-sheeran";
 
 
 
 function App() {
-  const [ingredients, setIngredients] = React.useState(null);
+  const [songs, setSongs] = React.useState(null);
 
   React.useEffect(() => {
 
   }, []);
 
-  const getIngredients = (e) => {
+  const getSongs = (e) => {
     e.preventDefault()
 
-    axios.get(`${process.env.REACT_APP_API_URL}${CAKE_URL}`, {
+    axios.get(`${process.env.REACT_APP_API_URL}${SONGS_URL}`, {
       headers: {
         Accept: 'application/json'
       }
     })
       .then((response) => {
-        setIngredients(response.data)
+        setSongs(response.data)
       }).catch((error) => {
         console.log(error)
       })
@@ -34,11 +34,11 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" style={{ height: '100px', weight: '100px' }} />
         <p>
-          Chocolate Cake
+          Ed Sheeran
         </p>
-        <button onClick={(e) => getIngredients(e)} type='button'>Show ingredients</button>
+        <button onClick={(e) => getSongs(e)} type='button'>Show songs</button>
         <ul>
-          {ingredients && ingredients.map(item => (
+          {songs && songs.map(item => (
             <li key={item} data-cy={item}>{item}</li>
           ))}
         </ul>

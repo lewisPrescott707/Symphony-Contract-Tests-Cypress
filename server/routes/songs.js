@@ -3,20 +3,20 @@ const router = express.Router();
 
 /**
  * @openapi
- * /ingredients/{cakeName}:
+ * /songs/{artist}:
  *   get:
- *     description: ingredients by cake name.
+ *     description: songs by artist.
  *     parameters:
- *       - name: cakeName
+ *       - name: artist
  *         in: path
- *         description: Name of cake
+ *         description: Name of artist
  *         required: true
  *         schema:
  *           type: string
- *           default: chocolate
+ *           default: ed-sheeran
  *     responses:
  *       200:
- *         description: Returns a list of ingredients.
+ *         description: Returns a list of songs.
  *         headers:
  *           Access-Control-Allow-Origin:
  *             schema:
@@ -30,15 +30,17 @@ const router = express.Router();
  *               items:
  *                 type: string
  */
-router.get('/ingredients/:cakeName', (req, res) => {
+router.get('/songs/:artist', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    const name = req.params.cakeName;
-    if (name === "chocolate" || name === "0" || name === 0) {
+    const name = req.params.artist;
+    if (name === "ed-sheeran" || name === "0" || name === 0) {
         return res.status(200).json([
-            "sugar"
+            "Shape of you",
+            "Perfect",
+            "Thinking out loud"
         ]);
     } else {
-        return res.status(200).json(["Cake not found"]);
+        return res.status(200).json(["Artist not found"]);
     }
 });
 
