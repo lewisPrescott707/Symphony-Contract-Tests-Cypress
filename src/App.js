@@ -1,33 +1,13 @@
 import logo from './musical-notes.svg';
 import './App.css';
-import axios from "axios";
 import React from "react";
-
-const SONGS_URL = "/songs/ed-sheeran";
-
-
+import { getSongs } from './api/songs';
 
 function App() {
   const [songs, setSongs] = React.useState(null);
+  const SONGS_URL = "/songs/ed-sheeran";
 
-  React.useEffect(() => {
-
-  }, []);
-
-  const getSongs = (e) => {
-    e.preventDefault()
-
-    axios.get(`${process.env.REACT_APP_API_URL}${SONGS_URL}`, {
-      headers: {
-        Accept: 'application/json'
-      }
-    })
-      .then((response) => {
-        setSongs(response.data)
-      }).catch((error) => {
-        console.log(error)
-      })
-  }
+  React.useEffect(() => {}, []);
 
   return (
     <div className="App">
@@ -36,7 +16,13 @@ function App() {
         <p>
           Ed Sheeran
         </p>
-        <button onClick={(e) => getSongs(e)} type='button'>Show songs</button>
+        <button onClick={async (e) => {
+            e.preventDefault()
+            const songs = await getSongs(SONGS_URL)
+            setSongs(songs)
+          }
+          } type='button'>Show songs
+        </button>
         <ul>
           {songs && songs.map(item => (
             <li key={item} data-cy={item}>{item}</li>
