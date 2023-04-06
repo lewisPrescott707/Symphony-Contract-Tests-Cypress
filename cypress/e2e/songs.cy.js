@@ -2,13 +2,13 @@ describe('Top songs', () => {
     const url = '/songs/ed-sheeran'
     before(() => {
         // setup pact
-        // intercept songs (ed-sheeran)
+        cy.intercept(`${url}*`, { fixture: 'songs.json' }).as('songs')
     })
 
     it('Artist', () => {
-        cy.visit(url)
+        cy.visit('/')
         cy.get('button').click()
-        // use pact wait
-        cy.contains('li', 'Shape of you').should('be.visible')
+        cy.wait('@songs') // use pact wait
+        cy.contains('li', 'The A Team').should('be.visible')
     })
 })
